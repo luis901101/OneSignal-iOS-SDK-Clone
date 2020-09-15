@@ -511,10 +511,25 @@ static OneSignalOutcomeEventsController *_outcomeEventsController;
 + (BOOL)shouldDelaySubscriptionSettingsUpdate {
     return shouldDelaySubscriptionUpdate;
 }
-    
+
 + (id)initWithLaunchOptions:(NSDictionary*)launchOptions appId:(NSString*)appId {
     return [self initWithLaunchOptions:launchOptions
                                  appId:appId
+                               baseUrl: OS_API_SERVER_URL
+            handleNotificationReceived:NULL
+              handleNotificationAction:NULL
+                              settings:@{
+                                  kOSSettingsKeyAutoPrompt :@YES,
+                                  kOSSettingsKeyInAppAlerts : @YES,
+                                  kOSSettingsKeyInAppLaunchURL : @YES,
+                                  kOSSSettingsKeyPromptBeforeOpeningPushURL : @NO
+                              }];
+}
+
++ (id)initWithLaunchOptions:(NSDictionary*)launchOptions appId:(NSString*)appId baseUrl:(NSString*)baseUrl {
+    return [self initWithLaunchOptions:launchOptions
+                                 appId:appId
+                               baseUrl:baseUrl
             handleNotificationReceived:NULL
               handleNotificationAction:NULL
                               settings:@{
@@ -528,9 +543,26 @@ static OneSignalOutcomeEventsController *_outcomeEventsController;
 + (id)initWithLaunchOptions:(NSDictionary*)launchOptions
                        appId:(NSString*)appId
    handleNotificationAction:(OSHandleNotificationActionBlock)actionCallback {
-    
     return [self initWithLaunchOptions:launchOptions
                                  appId:appId
+                               baseUrl: OS_API_SERVER_URL
+            handleNotificationReceived:NULL
+              handleNotificationAction:actionCallback
+                              settings:@{
+                                  kOSSettingsKeyAutoPrompt : @YES,
+                                  kOSSettingsKeyInAppAlerts : @YES,
+                                  kOSSettingsKeyInAppLaunchURL : @YES,
+                                  kOSSSettingsKeyPromptBeforeOpeningPushURL : @NO
+                              }];
+}
+
++ (id)initWithLaunchOptions:(NSDictionary*)launchOptions
+                       appId:(NSString*)appId
+                        baseUrl:(NSString*)baseUrl
+   handleNotificationAction:(OSHandleNotificationActionBlock)actionCallback {
+    return [self initWithLaunchOptions:launchOptions
+                                 appId:appId
+                                baseUrl:baseUrl
             handleNotificationReceived:NULL
               handleNotificationAction:actionCallback
                               settings:@{
@@ -545,9 +577,36 @@ static OneSignalOutcomeEventsController *_outcomeEventsController;
                       appId:(NSString*)appId
    handleNotificationAction:(OSHandleNotificationActionBlock)actionCallback
                    settings:(NSDictionary*)settings {
-    
     return [self initWithLaunchOptions:launchOptions
                                  appId:appId
+                                baseUrl: OS_API_SERVER_URL
+            handleNotificationReceived:NULL
+              handleNotificationAction:actionCallback
+                              settings:settings];
+}
+
++ (id)initWithLaunchOptions:(NSDictionary*)launchOptions
+                      appId:(NSString*)appId
+                    baseUrl:(NSString*)baseUrl
+   handleNotificationAction:(OSHandleNotificationActionBlock)actionCallback
+                   settings:(NSDictionary*)settings {
+    return [self initWithLaunchOptions:launchOptions
+                                 appId:appId
+                                baseUrl:baseUrl
+            handleNotificationReceived:NULL
+              handleNotificationAction:actionCallback
+                              settings:settings];
+}
+
+
++ (id)initWithLaunchOptions:(NSDictionary*)launchOptions
+                     appId:(NSString*)appId
+handleNotificationReceived:(OSHandleNotificationReceivedBlock)receivedCallback
+  handleNotificationAction:(OSHandleNotificationActionBlock)actionCallback
+                  settings:(NSDictionary*)settings {
+    return [self initWithLaunchOptions:launchOptions
+                                 appId:appId
+                                baseUrl: OS_API_SERVER_URL
             handleNotificationReceived:NULL
               handleNotificationAction:actionCallback
                               settings:settings];
@@ -557,6 +616,7 @@ static OneSignalOutcomeEventsController *_outcomeEventsController;
 //        Ensure a 2nd call can be made later with the appId from the developer's code.
 + (id)initWithLaunchOptions:(NSDictionary*)launchOptions
                       appId:(NSString*)appId
+                    baseUrl:(NSString*)baseUrl
  handleNotificationReceived:(OSHandleNotificationReceivedBlock)receivedCallback
    handleNotificationAction:(OSHandleNotificationActionBlock)actionCallback
                    settings:(NSDictionary*)settings {
