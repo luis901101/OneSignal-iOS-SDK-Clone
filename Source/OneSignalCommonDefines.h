@@ -35,12 +35,6 @@
 #define OS_API_ACCEPT_HEADER @"application/vnd.onesignal.v" OS_API_VERSION @"+json"
 //#define OS_API_SERVER_URL @"https://api.onesignal.com/"
 
-#ifdef CUSTOMIZABLE_BASE_URL
-NSString *OS_API_SERVER_URL = @"https://api.onesignal.com/";
-#else
-extern NSString *OS_API_SERVER_URL;
-#endif
-
 #define OS_IAM_WEBVIEW_BASE_URL @"https://onesignal.com/"
 
 // OneSignalUserDefault keys

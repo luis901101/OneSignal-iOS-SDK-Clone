@@ -138,6 +138,14 @@ NSString* const kOSSettingsKeyProvidesAppNotificationSettings = @"kOSSettingsKey
 
 @implementation OneSignal
 
+NSString* _baseUrl = @"https://api.onesignal.com/";
++ (NSString*) OS_API_SERVER_URL{
+    return _baseUrl;
+}
++ (void)updateApiServerURL:(NSString *)baseUrl {
+    if(baseUrl != nil && baseUrl != NULL) _baseUrl = baseUrl;
+}
+
 NSString* const ONESIGNAL_VERSION = @"021503";
 static NSString* mSDKType = @"native";
 static BOOL coldStartFromTapOnNotification = NO;
@@ -515,7 +523,7 @@ static OneSignalOutcomeEventsController *_outcomeEventsController;
 + (id)initWithLaunchOptions:(NSDictionary*)launchOptions appId:(NSString*)appId {
     return [self initWithLaunchOptions:launchOptions
                                  appId:appId
-                               baseUrl: OS_API_SERVER_URL
+                               baseUrl: NULL
             handleNotificationReceived:NULL
               handleNotificationAction:NULL
                               settings:@{
@@ -545,7 +553,7 @@ static OneSignalOutcomeEventsController *_outcomeEventsController;
    handleNotificationAction:(OSHandleNotificationActionBlock)actionCallback {
     return [self initWithLaunchOptions:launchOptions
                                  appId:appId
-                               baseUrl: OS_API_SERVER_URL
+                               baseUrl: NULL
             handleNotificationReceived:NULL
               handleNotificationAction:actionCallback
                               settings:@{
@@ -579,7 +587,7 @@ static OneSignalOutcomeEventsController *_outcomeEventsController;
                    settings:(NSDictionary*)settings {
     return [self initWithLaunchOptions:launchOptions
                                  appId:appId
-                                baseUrl: OS_API_SERVER_URL
+                                baseUrl: NULL
             handleNotificationReceived:NULL
               handleNotificationAction:actionCallback
                               settings:settings];
@@ -606,7 +614,7 @@ handleNotificationReceived:(OSHandleNotificationReceivedBlock)receivedCallback
                   settings:(NSDictionary*)settings {
     return [self initWithLaunchOptions:launchOptions
                                  appId:appId
-                                baseUrl: OS_API_SERVER_URL
+                               baseUrl: NULL
             handleNotificationReceived:NULL
               handleNotificationAction:actionCallback
                               settings:settings];
@@ -620,7 +628,7 @@ handleNotificationReceived:(OSHandleNotificationReceivedBlock)receivedCallback
  handleNotificationReceived:(OSHandleNotificationReceivedBlock)receivedCallback
    handleNotificationAction:(OSHandleNotificationActionBlock)actionCallback
                    settings:(NSDictionary*)settings {
-    
+    [OneSignal updateApiServerURL:baseUrl];
     [self onesignal_Log:ONE_S_LL_VERBOSE message:[NSString stringWithFormat:@"Called init with app ID: %@", appId]];
     [[OSMigrationController new] migrate];
     [OneSignalHelper setNotificationActionBlock:actionCallback];

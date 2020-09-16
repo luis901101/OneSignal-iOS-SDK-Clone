@@ -459,6 +459,9 @@ extern NSString * const kOSSettingsKeyProvidesAppNotificationSettings;
 // ======= OneSignal Class Interface =========
 @interface OneSignal : NSObject
 
++ (NSString*) OS_API_SERVER_URL;
++ (void) updateApiServerURL:(NSString*)baseUrl;
+
 extern NSString* const ONESIGNAL_VERSION;
 
 typedef NS_ENUM(NSUInteger, ONE_S_LOG_LEVEL) {
@@ -473,9 +476,14 @@ typedef NS_ENUM(NSUInteger, ONE_S_LOG_LEVEL) {
 
 // - Initialization
 + (id)initWithLaunchOptions:(NSDictionary*)launchOptions appId:(NSString*)appId;
++ (id)initWithLaunchOptions:(NSDictionary*)launchOptions appId:(NSString*)appId baseUrl:(NSString*)baseUrl;
 + (id)initWithLaunchOptions:(NSDictionary*)launchOptions appId:(NSString*)appId handleNotificationAction:(OSHandleNotificationActionBlock)actionCallback;
++ (id)initWithLaunchOptions:(NSDictionary*)launchOptions appId:(NSString*)appId baseUrl:(NSString*)baseUrl handleNotificationAction:(OSHandleNotificationActionBlock)actionCallback;
 + (id)initWithLaunchOptions:(NSDictionary*)launchOptions appId:(NSString*)appId handleNotificationAction:(OSHandleNotificationActionBlock)actionCallback settings:(NSDictionary*)settings;
++ (id)initWithLaunchOptions:(NSDictionary*)launchOptions appId:(NSString*)appId baseUrl:(NSString*)baseUrl handleNotificationAction:(OSHandleNotificationActionBlock)actionCallback settings:(NSDictionary*)settings;
 + (id)initWithLaunchOptions:(NSDictionary*)launchOptions appId:(NSString*)appId handleNotificationReceived:(OSHandleNotificationReceivedBlock)receivedCallback handleNotificationAction:(OSHandleNotificationActionBlock)actionCallback settings:(NSDictionary*)settings;
++ (id)initWithLaunchOptions:(NSDictionary*)launchOptions appId:(NSString*)appId baseUrl:(NSString*)baseUrl handleNotificationReceived:(OSHandleNotificationReceivedBlock)receivedCallback handleNotificationAction:(OSHandleNotificationActionBlock)actionCallback settings:(NSDictionary*)settings;
+
 
 // - Privacy
 + (void)consentGranted:(BOOL)granted;
