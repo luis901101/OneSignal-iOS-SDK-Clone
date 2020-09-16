@@ -1,14 +1,19 @@
-### This is a fork of [OneSignal-iOS-SDK](https://github.com/OneSignal/OneSignal-iOS-SDK)
+### This is a clone of [OneSignal-iOS-SDK](https://github.com/OneSignal/OneSignal-iOS-SDK)
 
 that allows you to specify a custom base url in case you need to use a proxy server...
 
-This fork is based in the source code of version:
+This clone is based in the source code of version:
 ![CocoaPods](https://img.shields.io/cocoapods/v/OneSignal.svg)
 
 ----
 
 ### How to use
-You just need to set the **baseUrl** in the OneSignal.init(...) function like:
+
+First you should add this to your pod:
+
+`pod 'CustomBaseUrlOneSignal', :git => "https://github.com/luis901101/OneSignal-iOS-SDK-Clone.git", :tag => "2.15.3"`
+
+Then you just need to set the **baseUrl** in the OneSignal.init(...) function like:
 
 ```
 [OneSignal initWithLaunchOptions:launchOptions
