@@ -2,8 +2,7 @@
 
 that allows you to specify a custom base url in case you need to use a proxy server...
 
-This clone is based in the source code of version:
-![CocoaPods](https://img.shields.io/cocoapods/v/OneSignal.svg)
+This clone is based in the source code of version: 2.15.3
 
 ----
 
